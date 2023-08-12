@@ -22,6 +22,7 @@ class SegmentationValidator(DetectionValidator):
         self.plot_masks = None
         self.process = None
         self.args.task = 'segment'
+        print("hacked");
         self.metrics = SegmentMetrics(save_dir=self.save_dir, on_plot=self.on_plot)
 
     def preprocess(self, batch):
@@ -60,6 +61,7 @@ class SegmentationValidator(DetectionValidator):
 
     def update_metrics(self, preds, batch):
         """Metrics."""
+        print(preds);
         for si, (pred, proto) in enumerate(zip(preds[0], preds[1])):
             idx = batch['batch_idx'] == si
             cls = batch['cls'][idx]
