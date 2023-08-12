@@ -160,6 +160,7 @@ class SegmentationValidator(DetectionValidator):
             # print(tabMasks.shape);
             # print(torch.unique(tabMasks))
             tabMasks = np.asarray(tabMasks.cpu(), dtype=bool)
+            print(tabIdx)
             device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
             for i, idx in enumerate(tabIdx):
                 pred_masks[idx] = torch.tensor(tabMasks[i], device=device).float()
