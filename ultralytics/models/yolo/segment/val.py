@@ -153,7 +153,7 @@ class SegmentationValidator(DetectionValidator):
                 gt_masks = F.interpolate(gt_masks[None], pred_masks.shape[1:], mode='bilinear', align_corners=False)[0]
                 gt_masks = gt_masks.gt_(0.5)
             print("in process batch");
-        
+            print(labels.shape)
             print(detections.shape)
             print(pred_masks.shape)
             # print(pred_masks[0])
