@@ -85,8 +85,7 @@ class SegmentationValidator(DetectionValidator):
             midx = [si] if self.args.overlap_mask else idx
             gt_masks = batch['masks'][midx]
             pred_masks = self.process(proto, pred[:, 6:], pred[:, :4], shape=batch['img'][si].shape[1:])
-            print("after pred_masks");
-            print(pred_masks.shape)
+       
             # Predictions
             if self.args.single_cls:
                 pred[:, 5] = 0
@@ -156,9 +155,10 @@ class SegmentationValidator(DetectionValidator):
             print(labels.shape)
             print(detections.shape)
             print(pred_masks.shape)
-            # print(pred_masks[0])
-            print(detections[:,:6])
-            print(detections[detections[:,5]==3,:6])
+            tabIdx=detections[:,5]==3;
+            tabMasks=pred_masks[tabIdx]
+            print(tabMasks.shape);
+            print(tabMasks)
             
             iou = mask_iou(gt_masks.view(gt_masks.shape[0], -1), pred_masks.view(pred_masks.shape[0], -1))
         else:  # boxes
