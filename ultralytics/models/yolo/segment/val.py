@@ -14,13 +14,13 @@ from ultralytics.utils.metrics import SegmentMetrics, box_iou, mask_iou
 from ultralytics.utils.plotting import output_to_target, plot_images
 
 
-def tableConvexHull(mask):
-    mask=np.zeros(mask.shape,dtype="bool")
-    temp=mask;
-    chull = convex_hull_image(temp);
-    mask=np.bitwise_or(mask,chull)
+def tableConvexHull(masks):
+    mask=np.zeros(masks[0].shape,dtype="bool")
+    for msk in masks:
+        temp=msk.cpu().detach().numpy();
+        chull = convex_hull_image(temp);
+        mask=np.bitwise_or(mask,chull)
     return mask
-
 class SegmentationValidator(DetectionValidator):
 
     def __init__(self, dataloader=None, save_dir=None, pbar=None, args=None, _callbacks=None):
@@ -166,13 +166,13 @@ class SegmentationValidator(DetectionValidator):
             tabMasks=pred_masks[tabIdx]
             # print(tabMasks.shape);
             # print(torch.unique(tabMasks))
-            tabMasks = np.asarray(tabMasks.cpu(), dtype=bool)
+            # tabMasks = np.asarray(tabMasks.cpu(), dtype=bool)
             # print(tabIdx)
             device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
             tcnt = 0
             for i, idx in enumerate(tabIdx):
                 if idx:
-                    tabMasks[tcnt] = tableConvexHull(tabMasks[tcnt])
+                    tabMasks[tcnt] = tableConvexHull([tabMasks[tcnt]])
                     pred_masks[i] = torch.tensor(tabMasks[tcnt], device=device).float()
                     tcnt+=1
                     # print(pred_masks[idx].shape)
