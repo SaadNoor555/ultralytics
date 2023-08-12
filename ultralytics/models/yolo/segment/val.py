@@ -154,6 +154,7 @@ class SegmentationValidator(DetectionValidator):
                 gt_masks = gt_masks.gt_(0.5)
             print("in process batch");
             print(pred_masks.shape)
+            print(detections.shape)
             print(pred_masks);
             iou = mask_iou(gt_masks.view(gt_masks.shape[0], -1), pred_masks.view(pred_masks.shape[0], -1))
         else:  # boxes
