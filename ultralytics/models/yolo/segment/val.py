@@ -154,7 +154,7 @@ class SegmentationValidator(DetectionValidator):
             # print("in process batch");
             # print(labels.shape)
             # print(detections.shape)
-            print(pred_masks.shape)
+            # print(pred_masks.shape)
             tabIdx=detections[:,5]==3;
             tabMasks=pred_masks[tabIdx]
             # print(tabMasks.shape);
@@ -167,7 +167,7 @@ class SegmentationValidator(DetectionValidator):
                 if idx:
                     pred_masks[i] = torch.tensor(tabMasks[tcnt], device=device).float()
                     tcnt+=1
-                    print(pred_masks[idx].shape)
+                    # print(pred_masks[idx].shape)
             # print(tabMasks.shape)
             # print(tabMasks)
             
