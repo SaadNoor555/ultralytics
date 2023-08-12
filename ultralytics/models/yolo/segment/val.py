@@ -16,7 +16,7 @@ from ultralytics.utils.plotting import output_to_target, plot_images
 
 def tableConvexHull(mask):
     mask=np.zeros(mask.shape,dtype="bool")
-    temp=mask.detach().numpy();
+    temp=mask.numpy();
     chull = convex_hull_image(temp);
     mask=np.bitwise_or(mask,chull)
     return mask
