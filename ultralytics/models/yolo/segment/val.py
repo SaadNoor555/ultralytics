@@ -61,8 +61,8 @@ class SegmentationValidator(DetectionValidator):
 
     def update_metrics(self, preds, batch):
         """Metrics."""
-        print(len(preds));
-        print(preds[0]);
+        print(len(preds[0]));
+        # print(preds[0]);
         return;
         for si, (pred, proto) in enumerate(zip(preds[0], preds[1])):
             idx = batch['batch_idx'] == si
