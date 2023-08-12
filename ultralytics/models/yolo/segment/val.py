@@ -143,8 +143,6 @@ class SegmentationValidator(DetectionValidator):
         Returns:
             correct (array[N, 10]), for 10 IoU levels
         """
-        print(gt_masks.shape)
-        print(labels.shape)
         if masks:
             if overlap:
                 nl = len(labels)
