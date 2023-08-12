@@ -154,16 +154,18 @@ class SegmentationValidator(DetectionValidator):
             # print("in process batch");
             # print(labels.shape)
             # print(detections.shape)
-            # print(pred_masks.shape)
+            print(pred_masks.shape)
             tabIdx=detections[:,5]==3;
             tabMasks=pred_masks[tabIdx]
             # print(tabMasks.shape);
             # print(torch.unique(tabMasks))
             tabMasks = np.asarray(tabMasks.cpu(), dtype=bool)
-            # for i, idx in enumerate(tabIdx):
-                # pred_masks[i]
-            print(tabMasks.shape)
-            print(tabMasks)
+            device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+            for i, idx in enumerate(tabIdx):
+                pred_masks[idx] = torch.tensor(tabMasks[i], device=device).float()
+                print(pred_masks[idx].shape)
+            # print(tabMasks.shape)
+            # print(tabMasks)
             
             iou = mask_iou(gt_masks.view(gt_masks.shape[0], -1), pred_masks.view(pred_masks.shape[0], -1))
         else:  # boxes
