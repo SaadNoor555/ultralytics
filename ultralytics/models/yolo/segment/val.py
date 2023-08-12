@@ -143,6 +143,8 @@ class SegmentationValidator(DetectionValidator):
         Returns:
             correct (array[N, 10]), for 10 IoU levels
         """
+        print(gt_masks.shape)
+        print(labels.shape)
         if masks:
             if overlap:
                 nl = len(labels)
@@ -153,8 +155,7 @@ class SegmentationValidator(DetectionValidator):
                 gt_masks = F.interpolate(gt_masks[None], pred_masks.shape[1:], mode='bilinear', align_corners=False)[0]
                 gt_masks = gt_masks.gt_(0.5)
             print("in process batch");
-            print(gt_masks.shape)
-            print(labels.shape)
+        
             print(detections.shape)
             print(pred_masks.shape)
             print(pred_masks[0])
