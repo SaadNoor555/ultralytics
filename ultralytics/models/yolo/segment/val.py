@@ -158,7 +158,7 @@ class SegmentationValidator(DetectionValidator):
             tabIdx=detections[:,5]==3;
             tabMasks=pred_masks[tabIdx]
             print(tabMasks.shape);
-            print(tabMasks)
+            print(torch.unique(tabMasks))
             
             iou = mask_iou(gt_masks.view(gt_masks.shape[0], -1), pred_masks.view(pred_masks.shape[0], -1))
         else:  # boxes
