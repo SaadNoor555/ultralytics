@@ -159,7 +159,9 @@ class SegmentationValidator(DetectionValidator):
             tabMasks=pred_masks[tabIdx]
             # print(tabMasks.shape);
             # print(torch.unique(tabMasks))
-            tabMasks = np.asarray(pred_masks.cpu(), dtype=bool)
+            tabMasks = np.asarray(tabMasks.cpu(), dtype=bool)
+            # for i, idx in enumerate(tabIdx):
+                # pred_masks[i]
             print(tabMasks.shape)
             print(tabMasks)
             
