@@ -20,9 +20,9 @@ def tableConvexHull(masks):
     for msk in masks:
         temp=msk.cpu().detach().numpy();
         chull = convex_hull_image(temp);
-        mask=np.bitwise_or(mask,chull)
+        # mask=np.bitwise_or(mask,chull)
     # cv2.imwrite('exampletab.png', mask*255)
-    return mask
+    return chull
 class SegmentationValidator(DetectionValidator):
 
     def __init__(self, dataloader=None, save_dir=None, pbar=None, args=None, _callbacks=None):
@@ -170,8 +170,7 @@ class SegmentationValidator(DetectionValidator):
             # print(torch.unique(tabMasks))
             # tabMasks = np.asarray(tabMasks.cpu(), dtype=bool)
             # print(tabIdx)
-            
-            device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
             tcnt = 0
             for i, idx in enumerate(tabIdx):
                 if idx:
