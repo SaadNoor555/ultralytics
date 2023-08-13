@@ -171,7 +171,7 @@ class SegmentationValidator(DetectionValidator):
             # tabMasks = np.asarray(tabMasks.cpu(), dtype=bool)
             # print(tabIdx)
             
-            # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+            device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
             tcnt = 0
             for i, idx in enumerate(tabIdx):
                 if idx:
