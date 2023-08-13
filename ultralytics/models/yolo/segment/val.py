@@ -94,7 +94,13 @@ class SegmentationValidator(DetectionValidator):
             midx = [si] if self.args.overlap_mask else idx
             gt_masks = batch['masks'][midx]
             pred_masks = self.process(proto, pred[:, 6:], pred[:, :4], shape=batch['img'][si].shape[1:])
-       
+
+            tabIdx=pred[:,5]==3;
+            for i, tidx in tabIdx:
+                if tidx:
+                    tmpMask = tableConvexHull([pred_masks[i]])
+                    tmp = torch.Tensor(tmpMask)
+                    pred_masks[i] = tmp
             # Predictions
             if self.args.single_cls:
                 pred[:, 5] = 0
@@ -126,7 +132,7 @@ class SegmentationValidator(DetectionValidator):
 
             pred_masks = torch.as_tensor(pred_masks, dtype=torch.uint8)
             if self.args.plots and self.batch_i < 5:
-                self.plot_masks.append(pred_masks[:15].cpu())  # filter top 15 to plot
+                self.plot_masks.append(pred_masks[:25].cpu())  # filter top 15 to plot
 
             # Save
             if self.args.save_json:
@@ -164,21 +170,23 @@ class SegmentationValidator(DetectionValidator):
             # print(labels.shape)
             # print(detections.shape)
             # print(pred_masks.shape)
-            tabIdx=detections[:,5]==3;
+
+            # tabIdx=detections[:,5]==3;
+
             # tabMasks=pred_masks[tabIdx]
             # print(tabMasks.shape);
             # print(torch.unique(tabMasks))
             # tabMasks = np.asarray(tabMasks.cpu(), dtype=bool)
             # print(tabIdx)
 
-            tcnt = 0
-            for i, idx in enumerate(tabIdx):
-                if idx:
-                    # cv2.imwrite(str(tcnt)+'.png', pred_masks[i].cpu().detach().numpy()*255)
-                    tmpMask = tableConvexHull([pred_masks[i]])
-                    tmp = torch.Tensor(tmpMask)
-                    pred_masks[i] = tmp
-                    tcnt+=1
+            # tcnt = 0
+            # for i, idx in enumerate(tabIdx):
+            #     if idx:
+            #         # cv2.imwrite(str(tcnt)+'.png', pred_masks[i].cpu().detach().numpy()*255)
+            #         tmpMask = tableConvexHull([pred_masks[i]])
+            #         tmp = torch.Tensor(tmpMask)
+            #         pred_masks[i] = tmp
+            #         tcnt+=1
 
             # if tcnt!=0:
             #     for pm in pred_masks:
