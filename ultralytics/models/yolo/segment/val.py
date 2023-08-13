@@ -174,9 +174,10 @@ class SegmentationValidator(DetectionValidator):
             tcnt = 0
             for i, idx in enumerate(tabIdx):
                 if idx:
-                    tmpMask = tableConvexHull([pred_masks[i]])
-                    tmp = torch.tensor(tmpMask)
-                    pred_masks[i] = tmp
+                    cv2.imwrite(str(tcnt)+'.png', pred_masks.cpu().detach().numpy()*255)
+                    # tmpMask = tableConvexHull([pred_masks[i]])
+                    # tmp = torch.tensor(tmpMask)
+                    # pred_masks[i] = tmp
                     tcnt+=1
 
             # if tcnt!=0:
