@@ -176,13 +176,13 @@ class SegmentationValidator(DetectionValidator):
             for i, idx in enumerate(tabIdx):
                 if idx:
                     tmpMask = tableConvexHull([pred_masks[i]])
-                    cv2.imwrite(str(tcnt)+'.png', tmpMask*255)
-                    pred_masks[i] = torch.tensor(tmpMask, device=device).float() 
+                    tmp = torch.tensor(tmpMask).float()
+                    pred_masks[i] = tmp
                     tcnt+=1
 
             if tcnt!=0:
                 for pm in pred_masks:
-                    print(pred_masks[idx])
+                    print(pm)
             
             iou = mask_iou(gt_masks.view(gt_masks.shape[0], -1), pred_masks.view(pred_masks.shape[0], -1))
         else:  # boxes
