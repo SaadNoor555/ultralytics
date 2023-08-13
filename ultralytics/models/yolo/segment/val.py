@@ -20,6 +20,7 @@ def tableConvexHull(masks):
         temp=msk.cpu().detach().numpy();
         chull = convex_hull_image(temp);
         mask=np.bitwise_or(mask,chull)
+    cv2.imwrite('exampletab.png', mask*255)
     return mask
 class SegmentationValidator(DetectionValidator):
 
