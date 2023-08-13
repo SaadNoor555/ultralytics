@@ -172,8 +172,8 @@ class SegmentationValidator(DetectionValidator):
             tcnt = 0
             for i, idx in enumerate(tabIdx):
                 if idx:
-                    tabMasks[tcnt] = tableConvexHull([tabMasks[tcnt]])
-                    pred_masks[i] = torch.tensor(tabMasks[tcnt], device=device).float()
+                    tmpMask = tableConvexHull([tabMasks[tcnt]])
+                    pred_masks[i] = torch.tensor(tmpMask, device=device).float()
                     tcnt+=1
                     # print(pred_masks[idx].shape)
             # print(tabMasks.shape)
