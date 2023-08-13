@@ -176,7 +176,7 @@ class SegmentationValidator(DetectionValidator):
                 if idx:
                     # cv2.imwrite(str(tcnt)+'.png', pred_masks[i].cpu().detach().numpy()*255)
                     tmpMask = tableConvexHull([pred_masks[i]])
-                    tmp = torch.tensor(tmpMask)
+                    tmp = torch.Tensor(tmpMask)
                     pred_masks[i] = tmp
                     tcnt+=1
 
