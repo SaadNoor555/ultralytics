@@ -12,7 +12,7 @@ from ultralytics.utils import DEFAULT_CFG, LOGGER, NUM_THREADS, ops
 from ultralytics.utils.checks import check_requirements
 from ultralytics.utils.metrics import SegmentMetrics, box_iou, mask_iou
 from ultralytics.utils.plotting import output_to_target, plot_images
-
+from skimage.morphology import convex_hull_image
 
 def tableConvexHull(masks):
     mask=np.zeros(masks[0].shape,dtype="bool")
