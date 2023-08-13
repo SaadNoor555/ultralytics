@@ -170,13 +170,15 @@ class SegmentationValidator(DetectionValidator):
             # print(torch.unique(tabMasks))
             # tabMasks = np.asarray(tabMasks.cpu(), dtype=bool)
             # print(tabIdx)
+            
             # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-            # tcnt = 0
-            # for i, idx in enumerate(tabIdx):
-            #     if idx:
-            #         tmpMask = tableConvexHull([pred_masks[i]])
-            #         pred_masks[i] = torch.tensor(tmpMask, device=device).float()
-            #         tcnt+=1
+            tcnt = 0
+            for i, idx in enumerate(tabIdx):
+                if idx:
+                    tmpMask = tableConvexHull([pred_masks[i]])
+                    cv2.imwrite(str(tcnt)+'.png', tmpMask*255)
+                    pred_masks[i] = torch.tensor(tmpMask, device=device).float()
+                    tcnt+=1
 
             # if tcnt!=0:
             #     for pm in pred_masks:
