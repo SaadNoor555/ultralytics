@@ -165,7 +165,7 @@ class SegmentationValidator(DetectionValidator):
             # print(detections.shape)
             # print(pred_masks.shape)
             tabIdx=detections[:,5]==3;
-            tabMasks=pred_masks[tabIdx]
+            # tabMasks=pred_masks[tabIdx]
             # print(tabMasks.shape);
             # print(torch.unique(tabMasks))
             # tabMasks = np.asarray(tabMasks.cpu(), dtype=bool)
@@ -174,13 +174,13 @@ class SegmentationValidator(DetectionValidator):
             tcnt = 0
             for i, idx in enumerate(tabIdx):
                 if idx:
-                    tmpMask = tableConvexHull([tabMasks[tcnt]])
+                    tmpMask = tableConvexHull([pred_masks[i]])
                     pred_masks[i] = torch.tensor(tmpMask, device=device).float()
                     tcnt+=1
 
-            if tcnt!=0:
-                for pm in pred_masks:
-                    print(pm.shape)
+            # if tcnt!=0:
+            #     for pm in pred_masks:
+            #         if pm.s
                     # print(pred_masks[idx].shape)
             # print(tabMasks.shape)
             # print(tabMasks)
