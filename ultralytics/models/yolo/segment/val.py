@@ -96,7 +96,7 @@ class SegmentationValidator(DetectionValidator):
             pred_masks = self.process(proto, pred[:, 6:], pred[:, :4], shape=batch['img'][si].shape[1:])
 
             tabIdx=pred[:,5]==3;
-            for i, tidx in tabIdx:
+            for i, tidx in enumerate(tabIdx):
                 if tidx:
                     tmpMask = tableConvexHull([pred_masks[i]])
                     tmp = torch.Tensor(tmpMask)
