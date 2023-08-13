@@ -180,9 +180,9 @@ class SegmentationValidator(DetectionValidator):
                     pred_masks[i] = tmp
                     tcnt+=1
 
-            if tcnt!=0:
-                for pm in pred_masks:
-                    print(pm)
+            # if tcnt!=0:
+            #     for pm in pred_masks:
+            #         print(pm)
             
             iou = mask_iou(gt_masks.view(gt_masks.shape[0], -1), pred_masks.view(pred_masks.shape[0], -1))
         else:  # boxes
